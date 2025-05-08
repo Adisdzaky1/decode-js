@@ -12,7 +12,7 @@
     "express": "^4.21.2",
     "express-session": "^1.17.1",
     "morgan": "~1.9.1",
-    "sass": "^1.26.10",
+    "sass": "^1.87.0",
     "multer": "^1.4.5-lts.1",
     "webcrack": "^2.15.1",
     "sass-folder-converter": "^1.0.3"
