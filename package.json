@@ -2,18 +2,19 @@
   "name": "express-website-template",
   "version": "1.0.0",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start": "node .",
     "dev": "nodemon -e js,scss,ejs,json ."
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "ejs": "^3.1.5",
-    "express": "~4.16.1",
+    "cookie-parser": "^1.4.7",
+    "ejs": "",
+    "express": "^4.21.2",
     "express-session": "^1.17.1",
     "morgan": "~1.9.1",
     "sass": "^1.26.10",
+    "multer": "^1.4.5-lts.1",
+    "webcrack": "^7.2.0",
     "sass-folder-converter": "^1.0.3"
   },
   "devDependencies": {
