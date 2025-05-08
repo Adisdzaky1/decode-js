@@ -9,7 +9,7 @@ const app = express();
 app.use(require("morgan")("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set("views", "./views");
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 
@@ -30,9 +30,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.get("/", (request, response) => {
-    response.render("index", { 
+    /*response.render("index", { 
         message: "Welcome in Express !" 
-    });
+    });*/
+  response.sendFile(path.join(__dirname, "views", "index.ejs"))
 });
 
 app.post('/api/decode', upload.single('file'), async (request, response) => {
