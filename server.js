@@ -20,20 +20,6 @@ app.use(require("express-session")({
     cookie: { secure: false }
 }));
 
-let privileges = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "privileges.json"), { encoding: "utf-8" }));
-
-app.use((request, response, next) => {
-    if (!request.session.privileges) request.session.privileges = [];
-    for (let [key, value] of Object.entries(privileges)) {
-        if (request.session.privileges.includes(key)) continue;
-        for (let routeKey in value["routes-access"]) {
-            if (request.url.startsWith("/" + value["routes-access"][routeKey])) {
-                return response.redirect("/" + (value["login-route"] || ""));
-            }
-        }
-    }
-    next();
-});
 
 fs.readdirSync(path.join(__dirname, "..", "routes")).forEach(file => {
     app.use("/", require(path.join("..", "routes", file)));
