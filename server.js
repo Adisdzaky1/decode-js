@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const fs = require("fs");
+const cors = require('cors');
 const serverless = require("serverless-http"); // install via npm
 const path = require("path");
 
 const app = express();
 
+app.use(cors())
 app.use(require("morgan")("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,7 +35,8 @@ app.get("/", (request, response) => {
     /*response.render("index", { 
         message: "Welcome in Express !" 
     });*/
-  response.render("index");
+  //response.render("index");
+  response.sendFile(path.join(__dirname, "views", "inde.html"))
 });
 /*
 app.post('/api/decode', upload.single('file'), async (request, response) => {
