@@ -76,8 +76,8 @@ app.post('/api/decode', upload.single('file'), async (request, response) => {
     return response.status(400).send('No file uploaded');
   }
   try {
-    const decoded = await webcrack.decode(request.file.buffer.toString());
-    const original = request.file.originalname;
+    const decoded = await webcrack(request.file.buffer.toString());
+   const original = request.file.originalname;
     const base = original.replace(/\.[^/.]+$/, '');
     const filename = `decode-${base}.js`;
     response.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
