@@ -12,18 +12,63 @@ app.use(fileUpload());
 app.get("/", (req, res) => {
   // HTML sederhana dengan form upload file JavaScript
   const html = `<!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Deobfuscate JavaScript dengan WebCrack</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebCrack Decoder</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-  <h1>Deobfuscate File JavaScript</h1>
-  <form action="/api/decode" method="POST" enctype="multipart/form-data">
-    <label>Pilih file .js untuk didecode:</label><br/>
-    <input type="file" name="file" accept=".js" required /><br/><br/>
-    <button type="submit">Decode</button>
-  </form>
+<body class="min-h-screen bg-gradient-to-br from-purple-600 via-pink-600 to-blue-600">
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="max-w-2xl mx-auto bg-white/90 backdrop-blur-sm rounded-xl shadow-2xl p-8 transition-all duration-300 hover:shadow-3xl">
+            <h1 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                WebCrack Decoder
+            </h1>
+            
+            <form action="/api/decode" method="post" enctype="multipart/form-data" class="space-y-6">
+                <div class="flex items-center justify-center w-full">
+                    <label class="flex flex-col w-full h-32 border-4 border-dashed hover:border-gray-400 transition-all duration-300 cursor-pointer rounded-xl items-center justify-center bg-gray-50 hover:bg-gray-100">
+                        <div class="flex flex-col items-center justify-center pt-7">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-blue-600 mb-2"></i>
+                            <p class="text-sm text-gray-600">
+                                <span class="font-semibold">Click to upload</span> or drag and drop
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">File format supported: .txt</p>
+                        </div>
+                        <input type="file" name="file" class="opacity-0 absolute" required>
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-lg shadow-md transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center">
+                    <i class="fas fa-unlock-alt mr-2"></i>
+                    Decode File
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-purple-700/90 to-blue-700/90 backdrop-blur-sm mt-12">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="text-white text-sm mb-4 md:mb-0">
+                    <p class="mb-1">© 2023 WebCrack Decoder. All rights reserved.</p>
+                    <p class="text-white/80">Developed with <i class="fas fa-heart text-red-400"></i> by the community</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="https://t.me/Oficiallz" target="_blank" class="text-white hover:text-blue-200 transition-colors duration-300 flex items-center">
+                        <i class="fab fa-telegram-plane mr-2"></i>
+                        @Oficiallz
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>`;
   res.send(html);
