@@ -16,7 +16,7 @@ app.set("view engine", "ejs");
 const multer = require('multer');
 const { webcrack } = require('webcrack');
 
-
+/*
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -28,14 +28,14 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-
+*/
 app.get("/", (request, response) => {
     /*response.render("index", { 
         message: "Welcome in Express !" 
     });*/
   response.sendFile(path.join(__dirname, "views", "index.ejs"))
 });
-
+/*
 app.post('/api/decode', upload.single('file'), async (request, response) => {
   try {
     if (!request.file) {
@@ -64,6 +64,27 @@ app.post('/api/decode', upload.single('file'), async (request, response) => {
   } catch (error) {
     console.error('Decode error:', error);
     response.status(500).send('Error processing file: ' + error.message);
+  }
+});
+*/
+
+const upload = multer();
+
+// Handle file upload + decode
+app.post('/api/decode', upload.single('file'), async (request, response) => {
+  if (!response.file) {
+    return response.status(400).send('No file uploaded');
+  }
+  try {
+    const decoded = await webcrack.decode(request.file.buffer.toString());
+    const original = request.file.originalname;
+    const base = original.replace(/\.[^/.]+$/, '');
+    const filename = `decode-${base}.js`;
+    response.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    response.setHeader('Content-Type', 'application/javascript');
+    response.send(decoded.code);
+  } catch (e) {
+    response.status(500).send('Decode Error: ' + e.message);
   }
 });
 
