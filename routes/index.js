@@ -14,13 +14,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-server.get("/", (request, response) => {
+app.get("/", (request, response) => {
     response.render("index", { 
         message: "Welcome in Express !" 
     });
 });
 
-server.post('/api/decode', upload.single('file'), async (request, response) => {
+app.post('/api/decode', upload.single('file'), async (request, response) => {
   try {
     if (!request.file) {
       return response.status(400).send('No file uploaded');
