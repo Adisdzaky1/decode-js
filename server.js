@@ -15,8 +15,8 @@ app.set("view engine", "ejs");
 
 
 
-fs.readdirSync(path.join(__dirname, "..", "routes")).forEach(file => {
-    app.use("/", require(path.join("..", "routes", file)));
+fs.readdirSync(path.join(__dirname, "routes")).forEach(file => {
+    app.use("/", require(path.join(__dirname, "routes", file)));
 });
 
 app.get("*", (req, res) => {
