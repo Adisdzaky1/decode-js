@@ -33,7 +33,7 @@ app.get("/", (request, response) => {
     /*response.render("index", { 
         message: "Welcome in Express !" 
     });*/
-  response.sendFile(path.join(__dirname, "views", "index.ejs"))
+  response.render("index");
 });
 /*
 app.post('/api/decode', upload.single('file'), async (request, response) => {
