@@ -13,12 +13,12 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-/*
+
 server.get("/", (request, response) => {
     response.render("index", { 
         message: "Welcome in Express !" 
     });
-});*/
+});
 
 server.post('/api/decode', upload.single('file'), async (request, response) => {
   try {
