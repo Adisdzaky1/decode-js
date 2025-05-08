@@ -12,13 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
-app.use(require("cookie-parser")());
-app.use(require("express-session")({
-    secret: "09e60df3-e2d7-4c10-b103-380da8d5719b",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }
-}));
+
 
 
 fs.readdirSync(path.join(__dirname, "..", "routes")).forEach(file => {
