@@ -3,58 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Decoder</title>
-    <!-- Tailwind CSS CDN -->
+    <title>WebCrack Decoder PRO</title>
+    
+    <!-- CDN Resources -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="min-h-screen bg-gradient-to-br from-purple-600 via-pink-600 to-blue-600">
-    <!-- Main Content -->
-    <div class="container mx-auto px-4 py-16">
-        <div class="max-w-2xl mx-auto bg-white/90 backdrop-blur-sm rounded-xl shadow-2xl p-8 transition-all duration-300 hover:shadow-3xl">
-            <h1 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                WebCrack Decoder
-            </h1>
-            
-            <form action="/api/decode" method="post" enctype="multipart/form-data" class="space-y-6">
-                <div class="flex items-center justify-center w-full">
-                    <label class="flex flex-col w-full h-32 border-4 border-dashed hover:border-gray-400 transition-all duration-300 cursor-pointer rounded-xl items-center justify-center bg-gray-50 hover:bg-gray-100">
-                        <div class="flex flex-col items-center justify-center pt-7">
-                            <i class="fas fa-cloud-upload-alt text-3xl text-blue-600 mb-2"></i>
-                            <p class="text-sm text-gray-600">
-                                <span class="font-semibold">Click to upload</span> or drag and drop
-                            </p>
-                            <p class="text-xs text-gray-500 mt-1">File format supported: .js</p>
-                        </div>
-                        <input type="file" name="file" class="opacity-0 absolute" required>
-                    </label>
-                </div>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-                <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-lg shadow-md transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center">
-                    <i class="fas fa-unlock-alt mr-2"></i>
-                    Decode File
-                </button>
-            </form>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 24px 0 rgba(138, 138, 138, 0.1);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .upload-hover:hover {
+            border-color: #818cf8;
+            background-color: rgba(129, 140, 248, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen font-[Inter]">
+    
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 py-12">
+        <!-- Header -->
+        <header class="text-center mb-16" data-aos="fade-down">
+            <h1 class="text-5xl font-bold text-gray-800 mb-4">
+                <span class="gradient-text">WebCrack</span>
+                <span class="text-gray-700">Decoder</span>
+            </h1>
+            <p class="text-gray-600 text-lg">Secure File Decryption Platform</p>
+        </header>
+
+        <!-- Upload Card -->
+        <div class="max-w-3xl mx-auto glass-card rounded-xl p-8" data-aos="zoom-in">
+            <div class="upload-container group">
+                <form action="/api/decode" method="post" enctype="multipart/form-data">
+                    <!-- Upload Area -->
+                    <label class="flex flex-col items-center justify-center w-full h-64 cursor-pointer 
+                              border-3 border-dashed border-gray-300 rounded-xl bg-white
+                              transition-all duration-300 relative overflow-hidden upload-hover">
+                              
+                        <div class="upload-content text-center p-6">
+                            <div class="upload-prompt">
+                                <div class="flex justify-center mb-4">
+                                    <div class="p-4 bg-indigo-50 rounded-full">
+                                        <i class="fas fa-file-upload text-3xl text-indigo-600"></i>
+                                    </div>
+                                </div>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Drop Files Here</h3>
+                                <p class="text-gray-600 text-sm">or <span class="text-indigo-600 font-medium">browse</span> to upload</p>
+                                <p class="text-gray-500 text-xs mt-2">Supported format: .txt</p>
+                            </div>
+                            
+                            <div class="file-preview hidden absolute inset-0 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center">
+                                <i class="fas fa-file-alt text-3xl text-indigo-600 mb-4"></i>
+                                <span class="file-name text-gray-800 font-medium text-center px-4"></span>
+                                <button type="button" class="change-file mt-4 text-indigo-600 hover:text-indigo-500 text-sm flex items-center">
+                                    <i class="fas fa-sync-alt mr-2"></i>
+                                    Change File
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <input type="file" name="file" class="opacity-0 absolute inset-0 w-full h-full cursor-pointer" required>
+                    </label>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-8 flex justify-center space-x-4">
+                        <button type="submit" 
+                                class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 
+                                       text-white font-semibold rounded-lg shadow-sm transition-all duration-300
+                                       flex items-center gap-2">
+                            <i class="fas fa-lock-open"></i>
+                            Decode Now
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-r from-purple-700/90 to-blue-700/90 backdrop-blur-sm mt-12">
-        <div class="container mx-auto px-4 py-6">
+    <footer class="mt-24 py-6 bg-white border-t border-gray-100">
+        <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="text-white text-sm mb-4 md:mb-0">
-                    <p class="mb-1">© 2025 JavaScript Decoder. All rights reserved.</p>
-                    <p class="text-white/80">Developed with <i class="fas fa-heart text-red-400"></i> by Relix Official</p>
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <p class="text-gray-600 text-sm">
+                        © 2023 WebCrack Decoder<br>
+                        <span class="text-gray-500">v2.1.0 Professional Edition</span>
+                    </p>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <a href="https://t.me/Oficiallz" target="_blank" class="text-white hover:text-blue-200 transition-colors duration-300 flex items-center">
-                        <i class="fab fa-telegram-plane mr-2"></i>
-                        @Oficiallz
+                <div class="flex items-center space-x-6">
+                    <a href="https://t.me/Oficiallz" target="_blank" 
+                       class="text-gray-600 hover:text-indigo-600 transition-colors flex items-center gap-2"
+                       data-aos="zoom-in" data-aos-delay="200">
+                        <i class="fab fa-telegram-plane text-lg"></i>
+                        <span class="font-medium">Developer Contact</span>
                     </a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-out'
+        });
+
+        const fileInput = document.querySelector('input[type="file"]');
+        const uploadPrompt = document.querySelector('.upload-prompt');
+        const filePreview = document.querySelector('.file-preview');
+        const fileName = document.querySelector('.file-name');
+        const changeFileBtn = document.querySelector('.change-file');
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                uploadPrompt.parentElement.style.display = 'none';
+                filePreview.style.display = 'flex';
+                fileName.textContent = file.name;
+            }
+        });
+
+        changeFileBtn.addEventListener('click', () => fileInput.click());
+        
+        const uploadArea = document.querySelector('label');
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#6366f1';
+            uploadArea.style.backgroundColor = '#f0f4ff';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#d1d5db';
+            uploadArea.style.backgroundColor = '#ffffff';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#d1d5db';
+            uploadArea.style.backgroundColor = '#ffffff';
+            fileInput.files = e.dataTransfer.files;
+            fileInput.dispatchEvent(new Event('change'));
+        });
+    </script>
 </body>
 </html>
