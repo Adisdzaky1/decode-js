@@ -3,79 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebCrack Decoder PRO</title>
+    <title>JavaScript Decoder PRO</title>
     
     <!-- CDN Resources -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 24px 0 rgba(138, 138, 138, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         }
         
-        body {
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .upload-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .upload-hover:hover {
-            border-color: #818cf8;
-            background-color: rgba(129, 140, 248, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-<body class="min-h-screen font-[Inter]">
+<body class="min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-indigo-600 font-[Poppins]">
     
     <!-- Main Container -->
     <div class="container mx-auto px-4 py-12">
         <!-- Header -->
         <header class="text-center mb-16" data-aos="fade-down">
-            <h1 class="text-5xl font-bold text-gray-800 mb-4">
-                <span class="gradient-text">JavaScript</span>
-                <span class="text-gray-700">Decoder</span>
+            <h1 class="text-5xl font-bold text-white mb-4">
+                <span class="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                    JavaScript 
+                </span>
+                <span class="text-white">Decoder</span>
             </h1>
-            <p class="text-gray-600 text-lg">Secure File Decryption Platform</p>
+            <p class="text-gray-200 text-lg">Advanced File Decryption Solution</p>
         </header>
 
         <!-- Upload Card -->
-        <div class="max-w-3xl mx-auto glass-card rounded-xl p-8" data-aos="zoom-in">
+        <div class="max-w-3xl mx-auto glass-card rounded-2xl p-8" data-aos="zoom-in">
             <div class="upload-container group">
                 <form action="/api/decode" method="post" enctype="multipart/form-data">
                     <!-- Upload Area -->
-                    <label class="flex flex-col items-center justify-center w-full h-64 cursor-pointer 
-                              border-3 border-dashed border-gray-300 rounded-xl bg-white
-                              transition-all duration-300 relative overflow-hidden upload-hover">
+                    <label class="flex flex-col items-center justify-center w-full h-64 cursor-pointer upload-hover 
+                              border-4 border-dashed border-white/30 rounded-2xl bg-white/10 hover:bg-white/20
+                              transition-all duration-300 relative overflow-hidden">
                               
                         <div class="upload-content text-center p-6">
                             <div class="upload-prompt">
                                 <div class="flex justify-center mb-4">
-                                    <div class="p-4 bg-indigo-50 rounded-full">
-                                        <i class="fas fa-file-upload text-3xl text-indigo-600"></i>
+                                    <div class="p-4 bg-white/10 rounded-full">
+                                        <i class="fas fa-file-upload text-3xl text-purple-300"></i>
                                     </div>
                                 </div>
-                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Drop Files Here</h3>
-                                <p class="text-gray-600 text-sm">or <span class="text-indigo-600 font-medium">browse</span> to upload</p>
-                                <p class="text-gray-500 text-xs mt-2">Supported format: .txt</p>
+                                <h3 class="text-xl font-semibold text-white mb-2">Drag & Drop Files</h3>
+                                <p class="text-gray-200 text-sm">or <span class="text-purple-300 font-medium">browse</span> to upload</p>
+                                <p class="text-gray-300 text-xs mt-2">Supported format: .js</p>
                             </div>
                             
-                            <div class="file-preview hidden absolute inset-0 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center">
-                                <i class="fas fa-file-alt text-3xl text-indigo-600 mb-4"></i>
-                                <span class="file-name text-gray-800 font-medium text-center px-4"></span>
-                                <button type="button" class="change-file mt-4 text-indigo-600 hover:text-indigo-500 text-sm flex items-center">
+                            <div class="file-preview hidden absolute inset-0 bg-white/5 backdrop-blur-sm flex flex-col items-center justify-center">
+                                <i class="fas fa-file-alt text-3xl text-purple-300 mb-4"></i>
+                                <span class="file-name text-white font-medium text-center px-4"></span>
+                                <button type="button" class="change-file mt-4 text-purple-300 hover:text-purple-200 text-sm flex items-center">
                                     <i class="fas fa-sync-alt mr-2"></i>
                                     Change File
                                 </button>
@@ -88,11 +84,11 @@
                     <!-- Action Buttons -->
                     <div class="mt-8 flex justify-center space-x-4">
                         <button type="submit" 
-                                class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 
-                                       text-white font-semibold rounded-lg shadow-sm transition-all duration-300
-                                       flex items-center gap-2">
-                            <i class="fas fa-lock-open"></i>
-                            Decode Now
+                                class="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 
+                                       text-white font-semibold rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105
+                                       flex items-center">
+                            <i class="fas fa-lock-open mr-2"></i>
+                            Decode
                         </button>
                     </div>
                 </form>
@@ -101,20 +97,20 @@
     </div>
 
     <!-- Footer -->
-    <footer class="mt-24 py-6 bg-white border-t border-gray-100">
+    <footer class="glass-card mt-24 py-6" data-aos="fade-up">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row items-center justify-between">
                 <div class="text-center md:text-left mb-4 md:mb-0">
-                    <p class="text-gray-600 text-sm">
-                        © 2023 WebCrack Decoder<br>
-                        <span class="text-gray-500">v2.1.0 Professional Edition</span>
+                    <p class="text-gray-200 text-sm">
+                        © 2025 JavaScript Decoder. All rights reserved.<br>
+                        <span class="text-gray-300">v2 PRO Edition</span>
                     </p>
                 </div>
                 <div class="flex items-center space-x-6">
                     <a href="https://t.me/Oficiallz" target="_blank" 
-                       class="text-gray-600 hover:text-indigo-600 transition-colors flex items-center gap-2"
+                       class="text-gray-300 hover:text-purple-300 transition-colors flex items-center"
                        data-aos="zoom-in" data-aos-delay="200">
-                        <i class="fab fa-telegram-plane text-lg"></i>
+                        <i class="fab fa-telegram-plane text-xl mr-2"></i>
                         <span class="font-medium">Developer Contact</span>
                     </a>
                 </div>
@@ -125,12 +121,14 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Initialize AOS
         AOS.init({
-            duration: 800,
+            duration: 1000,
             once: true,
-            easing: 'ease-out'
+            easing: 'ease-in-out'
         });
 
+        // File Upload Logic
         const fileInput = document.querySelector('input[type="file"]');
         const uploadPrompt = document.querySelector('.upload-prompt');
         const filePreview = document.querySelector('.file-preview');
@@ -148,23 +146,21 @@
 
         changeFileBtn.addEventListener('click', () => fileInput.click());
         
+        // Drag & Drop Functionality
         const uploadArea = document.querySelector('label');
         
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
-            uploadArea.style.borderColor = '#6366f1';
-            uploadArea.style.backgroundColor = '#f0f4ff';
+            uploadArea.classList.add('border-purple-400', 'bg-white/30');
         });
 
         uploadArea.addEventListener('dragleave', () => {
-            uploadArea.style.borderColor = '#d1d5db';
-            uploadArea.style.backgroundColor = '#ffffff';
+            uploadArea.classList.remove('border-purple-400', 'bg-white/30');
         });
 
         uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
-            uploadArea.style.borderColor = '#d1d5db';
-            uploadArea.style.backgroundColor = '#ffffff';
+            uploadArea.classList.remove('border-purple-400', 'bg-white/30');
             fileInput.files = e.dataTransfer.files;
             fileInput.dispatchEvent(new Event('change'));
         });
