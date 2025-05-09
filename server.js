@@ -5,6 +5,7 @@ const fileUpload = require("express-fileupload");      // middleware untuk menan
 const { webcrack } = require("webcrack");             // library deobfuscate JavaScript
 const app = express();
 const fs = require("fs");
+const path = require("path");
 // Gunakan express-fileupload sebagai middleware
 app.use(fileUpload());
 
@@ -12,7 +13,7 @@ app.use(fileUpload());
 app.get("/", (req, res) => {
   // HTML sederhana dengan form upload file JavaScript
   const html = ``;
-  res.send(fs.readFileSync('./inde.html', 'utf8'));
+  res.send(path.join(__dirname, "./", "inde.html"));
 });
 
 // Endpoint "/api/decode" menerima file .js, memprosesnya, dan mengembalikan hasil decode
