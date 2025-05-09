@@ -17,31 +17,35 @@ app.get("/", (req, res) => {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebCrack Decoder</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="min-h-screen bg-gradient-to-br from-purple-600 via-pink-600 to-blue-600">
-    <!-- Main Content -->
     <div class="container mx-auto px-4 py-16">
-        <div class="max-w-2xl mx-auto bg-white/90 backdrop-blur-sm rounded-xl shadow-2xl p-8 transition-all duration-300 hover:shadow-3xl">
+        <div class="max-w-2xl mx-auto bg-white/90 backdrop-blur-sm rounded-xl shadow-2xl p-8 transition-all duration-300">
             <h1 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                 WebCrack Decoder
             </h1>
             
             <form action="/api/decode" method="post" enctype="multipart/form-data" class="space-y-6">
-                <div class="flex items-center justify-center w-full">
-                    <label class="flex flex-col w-full h-32 border-4 border-dashed hover:border-gray-400 transition-all duration-300 cursor-pointer rounded-xl items-center justify-center bg-gray-50 hover:bg-gray-100">
-                        <div class="flex flex-col items-center justify-center pt-7">
-                            <i class="fas fa-cloud-upload-alt text-3xl text-blue-600 mb-2"></i>
-                            <p class="text-sm text-gray-600">
-                                <span class="font-semibold">Click to upload</span> or drag and drop
-                            </p>
-                            <p class="text-xs text-gray-500 mt-1">File format supported: .txt</p>
-                        </div>
-                        <input type="file" name="file" class="opacity-0 absolute" required>
-                    </label>
+                <div class="upload-container">
+                    <div class="flex items-center justify-center w-full">
+                        <label class="flex flex-col w-full h-32 border-4 border-dashed hover:border-gray-400 transition-all duration-300 cursor-pointer rounded-xl items-center justify-center bg-gray-50 hover:bg-gray-100 relative">
+                            <div class="upload-prompt flex flex-col items-center justify-center pt-7">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-blue-600 mb-2"></i>
+                                <p class="text-sm text-gray-600">
+                                    <span class="font-semibold">Click to upload</span> or drag and drop
+                                </p>
+                                <p class="text-xs text-gray-500 mt-1">File format supported: .txt</p>
+                            </div>
+                            <div class="file-preview hidden absolute inset-0 bg-white rounded-xl p-4 flex items-center justify-center flex-col">
+                                <i class="fas fa-file-alt text-2xl text-blue-600 mb-2"></i>
+                                <span class="file-name text-sm font-medium text-gray-700 text-center break-all"></span>
+                                <span class="text-xs text-gray-500 mt-1">Click to change file</span>
+                            </div>
+                            <input type="file" name="file" class="opacity-0 absolute w-full h-full" required>
+                        </label>
+                    </div>
                 </div>
 
                 <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-lg shadow-md transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center">
@@ -52,23 +56,60 @@ app.get("/", (req, res) => {
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="bg-gradient-to-r from-purple-700/90 to-blue-700/90 backdrop-blur-sm mt-12">
         <div class="container mx-auto px-4 py-6">
             <div class="flex flex-col md:flex-row items-center justify-between">
                 <div class="text-white text-sm mb-4 md:mb-0">
                     <p class="mb-1">© 2023 WebCrack Decoder. All rights reserved.</p>
-                    <p class="text-white/80">Developed with <i class="fas fa-heart text-red-400"></i> by the community</p>
+                    <p class="text-white/80">Developed with <i class="fas fa-heart text-red-400"></i> by @Oficiallz</p>
                 </div>
                 <div class="flex items-center space-x-4">
                     <a href="https://t.me/Oficiallz" target="_blank" class="text-white hover:text-blue-200 transition-colors duration-300 flex items-center">
                         <i class="fab fa-telegram-plane mr-2"></i>
-                        @Oficiallz
+                        Contact Developer
                     </a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <script>
+        const fileInput = document.querySelector('input[type="file"]');
+        const uploadPrompt = document.querySelector('.upload-prompt');
+        const filePreview = document.querySelector('.file-preview');
+        const fileName = document.querySelector('.file-name');
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                uploadPrompt.classList.add('hidden');
+                filePreview.classList.remove('hidden');
+                fileName.textContent = file.name;
+            }
+        });
+
+        filePreview.addEventListener('click', function(e) {
+            e.preventDefault();
+            fileInput.click();
+        });
+    </script>
+
+    <style>
+        .upload-container:hover .file-preview {
+            background-color: #f8f9fa;
+        }
+        .file-preview {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .file-name:hover {
+            color: #4f46e5;
+            text-decoration: underline;
+        }
+        input[type="file"]::-webkit-file-upload-button {
+            display: none;
+        }
+    </style>
 </body>
 </html>`;
   res.send(html);
