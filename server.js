@@ -12,7 +12,7 @@ app.use(fileUpload());
 app.get("/", (req, res) => {
   // HTML sederhana dengan form upload file JavaScript
   const html = ``;
-  res.send(fs.readFileSync('inde.html', 'utf8'));
+  res.send(fs.readFileSync('./inde.html', 'utf8'));
 });
 
 // Endpoint "/api/decode" menerima file .js, memprosesnya, dan mengembalikan hasil decode
