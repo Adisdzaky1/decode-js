@@ -4,7 +4,7 @@ const express = require("express");
 const fileUpload = require("express-fileupload");      // middleware untuk menangani file upload
 const { webcrack } = require("webcrack");             // library deobfuscate JavaScript
 const app = express();
-
+const fs = require("fs");
 // Gunakan express-fileupload sebagai middleware
 app.use(fileUpload());
 
