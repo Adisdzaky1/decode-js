@@ -30,6 +30,27 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
+
+        .file-preview {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes pulseBorder {
+            0% { border-color: rgba(255,255,255,0.3); }
+            50% { border-color: rgba(192,132,252,0.6); }
+            100% { border-color: rgba(255,255,255,0.3); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-indigo-600 font-[Poppins]">
@@ -38,13 +59,13 @@
     <div class="container mx-auto px-4 py-12">
         <!-- Header -->
         <header class="text-center mb-16" data-aos="fade-down">
-            <h1 class="text-5xl font-bold text-white mb-4">
+            <h1 class="text-5xl font-bold text-white mb-4 animate__animated animate__fadeInDown">
                 <span class="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
                     JavaScript 
                 </span>
                 <span class="text-white">Decoder</span>
             </h1>
-            <p class="text-gray-200 text-lg">Advanced File Decryption Solution</p>
+            <p class="text-gray-200 text-lg animate__animated animate__fadeIn animate__delay-1s">Advanced File Decryption Solution</p>
         </header>
 
         <!-- Upload Card -->
@@ -54,26 +75,27 @@
                     <!-- Upload Area -->
                     <label class="flex flex-col items-center justify-center w-full h-64 cursor-pointer upload-hover 
                               border-4 border-dashed border-white/30 rounded-2xl bg-white/10 hover:bg-white/20
-                              transition-all duration-300 relative overflow-hidden">
+                              transition-all duration-300 relative overflow-hidden animate-pulse-border">
                               
                         <div class="upload-content text-center p-6">
                             <div class="upload-prompt">
-                                <div class="flex justify-center mb-4">
+                                <div class="flex justify-center mb-4 animate__animated animate__bounceIn">
                                     <div class="p-4 bg-white/10 rounded-full">
                                         <i class="fas fa-file-upload text-3xl text-purple-300"></i>
                                     </div>
                                 </div>
-                                <h3 class="text-xl font-semibold text-white mb-2">Drag & Drop Files</h3>
-                                <p class="text-gray-200 text-sm">or <span class="text-purple-300 font-medium">browse</span> to upload</p>
-                                <p class="text-gray-300 text-xs mt-2">Supported format: .js</p>
+                                <h3 class="text-xl font-semibold text-white mb-2 animate__animated animate__fadeInUp">Drag & Drop Files</h3>
+                                <p class="text-gray-200 text-sm animate__animated animate__fadeInUp animate__delay-1s">or <span class="text-purple-300 font-medium">browse</span> to upload</p>
+                                <p class="text-gray-300 text-xs mt-2 animate__animated animate__fadeInUp animate__delay-1s">Supported format: .js</p>
                             </div>
                             
                             <div class="file-preview hidden absolute inset-0 bg-white/5 backdrop-blur-sm flex flex-col items-center justify-center">
-                                <i class="fas fa-file-alt text-3xl text-purple-300 mb-4"></i>
+                                <i class="fas fa-file-alt text-3xl text-purple-300 mb-4 animate__animated animate__bounceIn"></i>
                                 <span class="file-name text-white font-medium text-center px-4"></span>
-                                <button type="button" class="change-file mt-4 text-purple-300 hover:text-purple-200 text-sm flex items-center">
+                                <button type="button" class="change-file mt-4 text-purple-300 hover:text-purple-200 text-sm flex items-center 
+                                    animate__animated animate__pulse animate__infinite">
                                     <i class="fas fa-sync-alt mr-2"></i>
-                                    Change File
+                                    Click to Change File
                                 </button>
                             </div>
                         </div>
@@ -86,7 +108,7 @@
                         <button type="submit" 
                                 class="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 
                                        text-white font-semibold rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105
-                                       flex items-center">
+                                       flex items-center animate__animated animate__pulse animate__delay-2s">
                             <i class="fas fa-lock-open mr-2"></i>
                             Decode
                         </button>
@@ -135,12 +157,27 @@
         const fileName = document.querySelector('.file-name');
         const changeFileBtn = document.querySelector('.change-file');
 
-        fileInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
+        function handleFileSelect(file) {
             if (file) {
-                uploadPrompt.parentElement.style.display = 'none';
+                uploadPrompt.style.display = 'none';
                 filePreview.style.display = 'flex';
                 fileName.textContent = file.name;
+                
+                // Add animation to preview
+                filePreview.classList.add('animate__fadeInUp');
+                setTimeout(() => {
+                    filePreview.classList.remove('animate__fadeInUp');
+                }, 500);
+            }
+        }
+
+        fileInput.addEventListener('change', function(e) {
+            handleFileSelect(e.target.files[0]);
+        });
+
+        filePreview.addEventListener('click', function(e) {
+            if(e.target === filePreview || e.target === fileName) {
+                fileInput.click();
             }
         });
 
@@ -152,17 +189,31 @@
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadArea.classList.add('border-purple-400', 'bg-white/30');
+            uploadArea.style.animation = 'pulseBorder 1.5s infinite';
         });
 
         uploadArea.addEventListener('dragleave', () => {
             uploadArea.classList.remove('border-purple-400', 'bg-white/30');
+            uploadArea.style.animation = '';
         });
 
         uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
             uploadArea.classList.remove('border-purple-400', 'bg-white/30');
+            uploadArea.style.animation = '';
             fileInput.files = e.dataTransfer.files;
-            fileInput.dispatchEvent(new Event('change'));
+            handleFileSelect(e.dataTransfer.files[0]);
+        });
+
+        // Add initial animations
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('h1').classList.add('animate__fadeInDown');
+            document.querySelectorAll('.animate__fadeInUp').forEach(el => {
+                el.style.opacity = 0;
+                setTimeout(() => {
+                    el.classList.add('animate__fadeInUp');
+                }, 300);
+            });
         });
     </script>
 </body>
