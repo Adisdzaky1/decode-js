@@ -8,6 +8,50 @@ const fs = require("fs");
 const path = require("path");
 // Gunakan express-fileupload sebagai middleware
 app.use(fileUpload());
+const JsConfuser = require("js-confuser");
+
+// Fungsi pembuat konfigurasi obfuscation
+const getBigObfuscationConfig = (flatteningLevel = 0.75) => {
+    const generateBigName = () => {
+        const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const length = Math.floor(Math.random() * 5) + 5;
+        let name = "";
+        for (let i = 0; i < length; i++) {
+            name += chars[Math.floor(Math.random() * chars.length)];
+        }
+        return name;
+    };
+
+    return {
+        target: "node",
+        compact: true,
+        renameVariables: true,
+        renameGlobals: true,
+        identifierGenerator: () => generateBigName(),
+
+        stringConcealing: true,
+        stringEncoding: true,
+        stringSplitting: true,
+
+        controlFlowFlattening: flatteningLevel,
+        flatten: true,
+
+        shuffle: true,
+        rgf: true,
+        calculator: true,
+
+        duplicateLiteralsRemoval: true,
+        deadCode: true,
+        opaquePredicates: true,
+
+        lock: {
+            selfDefending: true,
+            antiDebug: true,
+            integrity: true,
+            tamperProtection: true,
+        },
+    };
+};
 
 // Endpoint utama "/" menampilkan halaman HTML dengan form upload .js
 app.get("/", (req, res) => {
@@ -49,6 +93,56 @@ app.post("/api/decode", async (req, res) => {
     res.status(500).send("Terjadi kesalahan saat memproses file: " + err.message);
   }
 });
+
+
+
+
+
+
+app.post("/api/encode", async (req, res) => {
+    const { level, mb } = req.query;
+    const jsFile = req.files.file; 
+    const originalName = jsFile.name;
+    
+    
+      // Baca isi file .js sebagai teks (utf-8)
+    const content = jsFile.data.toString("utf8");
+    
+    let flatteningLevel = parseFloat(level);
+    if (isNaN(flatteningLevel) || flatteningLevel < 0.1 || flatteningLevel > 1.0) {
+        flatteningLevel = 0.75;
+    }
+
+    try {
+        const obfuscated = await JsConfuser.obfuscate(content, getBigObfuscationConfig(flatteningLevel));
+        let obfCode = obfuscated.code;
+
+        // Tambahkan padding jika user menentukan ukuran file (dalam MB)
+        const desiredSizeMb = parseFloat(mb);
+        if (!isNaN(desiredSizeMb) && desiredSizeMb > 0) {
+            const desiredBytes = desiredSizeMb * 1024 * 1024;
+            const currentBytes = Buffer.byteLength(obfCode, "utf8");
+
+            if (currentBytes < desiredBytes) {
+                const paddingBytes = desiredBytes - currentBytes;
+                const dummyData = `\n// PAD_START\nvar _pad = "${"X".repeat(paddingBytes - 30)}";\n// PAD_END\n`;
+                obfCode += dummyData;
+            }
+        }
+
+        const outputName = "ench-" + originalName;
+    // Atur header agar browser mendownload file sebagai lampiran
+    res.setHeader('Content-Disposition', `attachment; filename="${outputName}"`);
+    res.setHeader('Content-Type', 'application/javascript');
+    
+        res.send(obfCode);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Gagal melakukan obfuscation.", detail: err.message });
+    }
+});
+
+// Start server
 
 // Export app untuk digunakan oleh Vercel
 module.exports = app;
