@@ -26,8 +26,24 @@
             border-bottom: 3px solid #c084fc;
         }
 
-        .upload-content {
-            transition: all 0.3s ease;
+        .file-preview {
+            transition: all 0.3s ease-in-out;
+            z-index: 10;
+        }
+        
+        .upload-prompt {
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -37,23 +53,20 @@
     <div class="container mx-auto px-4 py-12">
         <!-- Header -->
         <header class="text-center mb-12" data-aos="fade-down">
-            <h1 class="text-5xl font-bold mb-4">
+            <h1 class="text-5xl font-bold text-white mb-4">
                 <span class="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-                    JS TRANSFORMER
+                    JS Transformer 
                 </span>
+                <span class="text-white">PRO</span>
             </h1>
-            <p class="text-gray-200 text-lg font-light tracking-wider">
-                <span class="bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-                    Advanced Obfuscation & Decryption Suite
-                </span>
-            </p>
+            <p class="text-gray-200 text-lg">Advanced JavaScript Obfuscation & Decryption</p>
         </header>
 
         <!-- Tabs -->
         <div class="flex justify-center mb-8" data-aos="fade-up">
             <div class="glass-card rounded-full p-1">
-                <button class="tab-btn px-6 py-2 text-white rounded-full transition-all" data-tab="decode">DECRYPT</button>
-                <button class="tab-btn px-6 py-2 text-white rounded-full transition-all" data-tab="encode">OBFUSCATE</button>
+                <button class="tab-btn px-6 py-2 text-white rounded-full transition-all" data-tab="decode">Decode</button>
+                <button class="tab-btn px-6 py-2 text-white rounded-full transition-all" data-tab="encode">Encode</button>
             </div>
         </div>
 
@@ -71,14 +84,14 @@
                                         <i class="fas fa-file-upload text-3xl text-purple-300"></i>
                                     </div>
                                 </div>
-                                <h3 class="text-xl font-semibold text-white mb-2">Upload Encrypted File</h3>
-                                <p class="text-gray-200 text-sm"><span class="text-purple-300 font-medium">Browse</span> to decrypt</p>
+                                <h3 class="text-xl font-semibold text-white mb-2">Drag & Drop Files</h3>
+                                <p class="text-gray-200 text-sm">or <span class="text-purple-300 font-medium">browse</span> to upload</p>
                                 <p class="text-gray-300 text-xs mt-2">Supported format: .js</p>
                             </div>
                             <div class="file-preview hidden absolute inset-0 bg-white/5 backdrop-blur-sm flex flex-col items-center justify-center">
-                                <i class="fas fa-file-alt text-3xl text-purple-300 mb-4 animate-pulse"></i>
+                                <i class="fas fa-file-alt text-3xl text-purple-300 mb-4 animate__animated animate__bounceIn"></i>
                                 <span class="file-name text-white font-medium text-center px-4"></span>
-                                <p class="text-gray-300 text-xs mt-4">Click to change file</p>
+                                <p class="text-gray-300 text-xs mt-2">Click to change file</p>
                             </div>
                         </div>
                         <input type="file" name="file" class="opacity-0 absolute inset-0 w-full h-full" required>
@@ -87,7 +100,7 @@
                 <button type="submit" class="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 
                        text-white font-semibold rounded-lg transition-all flex items-center justify-center">
                     <i class="fas fa-unlock-alt mr-2"></i>
-                    Decrypt File
+                    Decode File
                 </button>
             </form>
         </div>
@@ -106,14 +119,14 @@
                                         <i class="fas fa-file-upload text-3xl text-purple-300"></i>
                                     </div>
                                 </div>
-                                <h3 class="text-xl font-semibold text-white mb-2">Upload Source File</h3>
-                                <p class="text-gray-200 text-sm"><span class="text-purple-300 font-medium">Browse</span> to obfuscate</p>
+                                <h3 class="text-xl font-semibold text-white mb-2">Drag & Drop Files</h3>
+                                <p class="text-gray-200 text-sm">or <span class="text-purple-300 font-medium">browse</span> to upload</p>
                                 <p class="text-gray-300 text-xs mt-2">Supported format: .js</p>
                             </div>
                             <div class="file-preview hidden absolute inset-0 bg-white/5 backdrop-blur-sm flex flex-col items-center justify-center">
-                                <i class="fas fa-file-alt text-3xl text-purple-300 mb-4 animate-pulse"></i>
+                                <i class="fas fa-file-alt text-3xl text-purple-300 mb-4 animate__animated animate__bounceIn"></i>
                                 <span class="file-name text-white font-medium text-center px-4"></span>
-                                <p class="text-gray-300 text-xs mt-4">Click to change file</p>
+                                <p class="text-gray-300 text-xs mt-2">Click to change file</p>
                             </div>
                         </div>
                         <input type="file" name="file" class="opacity-0 absolute inset-0 w-full h-full" required>
@@ -122,72 +135,104 @@
                 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="space-y-2">
-                        <label class="text-gray-200 text-sm">Obfuscation Intensity</label>
+                        <label class="text-gray-200 text-sm">Obfuscation Level</label>
                         <input type="range" name="level" min="0.1" max="1" step="0.1" value="0.75" 
                                class="w-full bg-white/10 rounded-lg appearance-none h-2">
                         <div class="flex justify-between text-gray-300 text-xs">
-                            <span>Standard</span>
-                            <span>Maximum</span>
+                            <span>Low</span>
+                            <span>High</span>
                         </div>
                     </div>
                     
                     <div class="space-y-2">
-                        <label class="text-gray-200 text-sm">File Padding (MB)</label>
+                        <label class="text-gray-200 text-sm">File Size Padding (MB)</label>
                         <input type="number" name="mb" min="0" step="0.1" 
-                               class="w-full bg-white/10 border border-white/20 rounded-xl p-2 text-white placeholder-gray-400"
-                               placeholder="Optional">
+                               class="w-full bg-white/10 border border-white/20 rounded-xl p-2 text-white">
                     </div>
                 </div>
                 
                 <button type="submit" class="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-500 hover:opacity-90 
                        text-white font-semibold rounded-lg transition-all flex items-center justify-center">
                     <i class="fas fa-lock mr-2"></i>
-                    Obfuscate File
+                    Encrypt File
                 </button>
             </form>
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="glass-card mt-12 py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <p class="text-gray-200 text-sm">
+                        © 2023 JS Transformer. All rights reserved.<br>
+                        <span class="text-gray-300">v3.0 PRO Edition</span>
+                    </p>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="https://t.me/Oficiallz" target="_blank" 
+                       class="text-gray-300 hover:text-purple-300 transition-colors flex items-center">
+                        <i class="fab fa-telegram-plane text-xl mr-2"></i>
+                        <span class="font-medium">Developer Contact</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({duration: 800});
-        
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
         // Tab System
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
+                // Remove active class from all buttons
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('tab-active'));
+                // Add active class to clicked button
                 btn.classList.add('tab-active');
-                const tab = btn.dataset.tab;
+                
+                // Show/hide tab content
+                const tabName = btn.dataset.tab;
                 document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.toggle('hidden', content.dataset.tab !== tab);
+                    content.classList.toggle('hidden', content.dataset.tab !== tabName);
                 });
             });
         });
 
-        // Enhanced File Upload Logic
+        // File Upload Logic
         document.querySelectorAll('input[type="file"]').forEach(input => {
             input.addEventListener('change', function() {
-                const parentForm = this.closest('form');
-                const prompt = parentForm.querySelector('.upload-prompt');
-                const preview = parentForm.querySelector('.file-preview');
-                
-                if(this.files.length > 0) {
-                    prompt.style.opacity = '0';
-                    prompt.style.pointerEvents = 'none';
-                    preview.classList.remove('hidden');
-                    preview.style.opacity = '1';
-                    parentForm.querySelector('.file-name').textContent = this.files[0].name;
+                const form = this.closest('form');
+                const uploadPrompt = form.querySelector('.upload-prompt');
+                const filePreview = form.querySelector('.file-preview');
+                const fileName = form.querySelector('.file-name');
+
+                if (this.files.length > 0) {
+                    // Hide upload prompt
+                    uploadPrompt.style.display = 'none';
+                    // Show file preview
+                    filePreview.classList.remove('hidden');
+                    // Add animation
+                    filePreview.style.animation = 'fadeInUp 0.3s ease-out';
+                    // Set file name
+                    fileName.textContent = this.files[0].name;
                 } else {
-                    prompt.style.opacity = '1';
-                    prompt.style.pointerEvents = 'auto';
-                    preview.classList.add('hidden');
+                    // Show upload prompt if file is removed
+                    uploadPrompt.style.display = 'block';
+                    filePreview.classList.add('hidden');
                 }
             });
-            
-            // Click preview to trigger new upload
+
+            // Click to change file
             input.closest('label').addEventListener('click', (e) => {
-                if(input.files.length > 0) {
+                if (input.files.length > 0) {
                     e.preventDefault();
                     input.value = '';
                     input.dispatchEvent(new Event('change'));
