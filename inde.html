@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Decoder PRO</title>
+    <title>JS Transformer PRO</title>
     
     <!-- CDN Resources -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -22,116 +21,136 @@
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         }
         
-        .upload-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .upload-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .file-preview {
-            animation: fadeInUp 0.5s ease-out;
-        }
-
-        @keyframes pulseBorder {
-            0% { border-color: rgba(255,255,255,0.3); }
-            50% { border-color: rgba(192,132,252,0.6); }
-            100% { border-color: rgba(255,255,255,0.3); }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .tab-active {
+            background: rgba(192, 132, 252, 0.2);
+            border-bottom: 3px solid #c084fc;
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-indigo-600 font-[Poppins]">
+<body class="min-h-screen bg-gradient-to-br from-purple-600 via-pink-600 to-indigo-700 font-[Poppins]">
     
     <!-- Main Container -->
     <div class="container mx-auto px-4 py-12">
         <!-- Header -->
-        <header class="text-center mb-16" data-aos="fade-down">
-            <h1 class="text-5xl font-bold text-white mb-4 animate__animated animate__fadeInDown">
+        <header class="text-center mb-12" data-aos="fade-down">
+            <h1 class="text-5xl font-bold text-white mb-4">
                 <span class="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-                    JavaScript 
+                    JS Transformer 
                 </span>
-                <span class="text-white">Decoder</span>
+                <span class="text-white">PRO</span>
             </h1>
-            <p class="text-gray-200 text-lg animate__animated animate__fadeIn animate__delay-1s">Advanced File Decryption Solution</p>
+            <p class="text-gray-200 text-lg">Advanced JavaScript Obfuscation & Decryption</p>
         </header>
 
-        <!-- Upload Card -->
-        <div class="max-w-3xl mx-auto glass-card rounded-2xl p-8" data-aos="zoom-in">
-            <div class="upload-container group">
-                <form action="/api/decode" method="post" enctype="multipart/form-data">
-                    <!-- Upload Area -->
-                    <label class="flex flex-col items-center justify-center w-full h-64 cursor-pointer upload-hover 
+        <!-- Tabs -->
+        <div class="flex justify-center mb-8" data-aos="fade-up">
+            <div class="glass-card rounded-full p-1">
+                <button class="tab-btn px-6 py-2 text-white rounded-full transition-all" data-tab="decode">Decode</button>
+                <button class="tab-btn px-6 py-2 text-white rounded-full transition-all" data-tab="encode">Encode</button>
+            </div>
+        </div>
+
+        <!-- Decode Card -->
+        <div class="tab-content max-w-3xl mx-auto glass-card rounded-2xl p-8" data-tab="decode" data-aos="zoom-in">
+            <form action="/api/decode" method="post" enctype="multipart/form-data" class="space-y-6">
+                <div class="upload-container group">
+                    <label class="flex flex-col items-center justify-center w-full h-64 cursor-pointer 
                               border-4 border-dashed border-white/30 rounded-2xl bg-white/10 hover:bg-white/20
-                              transition-all duration-300 relative overflow-hidden animate-pulse-border">
-                              
+                              transition-all duration-300 relative overflow-hidden">
                         <div class="upload-content text-center p-6">
                             <div class="upload-prompt">
-                                <div class="flex justify-center mb-4 animate__animated animate__bounceIn">
+                                <div class="flex justify-center mb-4">
                                     <div class="p-4 bg-white/10 rounded-full">
                                         <i class="fas fa-file-upload text-3xl text-purple-300"></i>
                                     </div>
                                 </div>
-                                <h3 class="text-xl font-semibold text-white mb-2 animate__animated animate__fadeInUp">Drag & Drop Files</h3>
-                                <p class="text-gray-200 text-sm animate__animated animate__fadeInUp animate__delay-1s">or <span class="text-purple-300 font-medium">browse</span> to upload</p>
-                                <p class="text-gray-300 text-xs mt-2 animate__animated animate__fadeInUp animate__delay-1s">Supported format: .js</p>
+                                <h3 class="text-xl font-semibold text-white mb-2">Upload Encrypted File</h3>
+                                <p class="text-gray-200 text-sm"><span class="text-purple-300 font-medium">Browse</span> to decode</p>
+                                <p class="text-gray-300 text-xs mt-2">Supported format: .js</p>
                             </div>
-                            
-                            <div class="file-preview hidden absolute inset-0 bg-white/5 flex flex-col items-center justify-center">
-                                <i class="fas fa-file-alt text-3xl text-purple-300 mb-4 animate__animated animate__bounceIn"></i>
+                            <div class="file-preview hidden absolute inset-0 bg-white/5 backdrop-blur-sm flex flex-col items-center justify-center">
+                                <i class="fas fa-file-alt text-3xl text-purple-300 mb-4"></i>
                                 <span class="file-name text-white font-medium text-center px-4"></span>
-                                <button type="button" class="change-file mt-4 text-purple-300 hover:text-purple-200 text-sm flex items-center 
-                                    animate__animated animate__pulse animate__infinite">
-                                    <i class="fas fa-sync-alt mr-2"></i>
-                                    Click to Change File
-                                </button>
                             </div>
                         </div>
-                        
-                        <input type="file" name="file" class="opacity-0 absolute inset-0 w-full h-full cursor-pointer" required>
+                        <input type="file" name="file" class="opacity-0 absolute inset-0 w-full h-full" required>
                     </label>
+                </div>
+                <button type="submit" class="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 
+                       text-white font-semibold rounded-lg transition-all flex items-center justify-center">
+                    <i class="fas fa-unlock-alt mr-2"></i>
+                    Decode File
+                </button>
+            </form>
+        </div>
 
-                    <!-- Action Buttons -->
-                    <div class="mt-8 flex justify-center space-x-4">
-                        <button type="submit" 
-                                class="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 
-                                       text-white font-semibold rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105
-                                       flex items-center animate__animated animate__pulse animate__delay-2s">
-                            <i class="fas fa-lock-open mr-2"></i>
-                            Decode
-                        </button>
+        <!-- Encode Card -->
+        <div class="tab-content max-w-3xl mx-auto glass-card rounded-2xl p-8 hidden" data-tab="encode" data-aos="zoom-in">
+            <form action="/api/encode" method="post" enctype="multipart/form-data" class="space-y-6">
+                <div class="upload-container group">
+                    <label class="flex flex-col items-center justify-center w-full h-64 cursor-pointer 
+                              border-4 border-dashed border-white/30 rounded-2xl bg-white/10 hover:bg-white/20
+                              transition-all duration-300 relative overflow-hidden">
+                        <div class="upload-content text-center p-6">
+                            <div class="upload-prompt">
+                                <div class="flex justify-center mb-4">
+                                    <div class="p-4 bg-white/10 rounded-full">
+                                        <i class="fas fa-file-upload text-3xl text-purple-300"></i>
+                                    </div>
+                                </div>
+                                <h3 class="text-xl font-semibold text-white mb-2">Upload JS File</h3>
+                                <p class="text-gray-200 text-sm"><span class="text-purple-300 font-medium">Browse</span> to encode</p>
+                                <p class="text-gray-300 text-xs mt-2">Supported format: .js</p>
+                            </div>
+                            <div class="file-preview hidden absolute inset-0 bg-white/5 backdrop-blur-sm flex flex-col items-center justify-center">
+                                <i class="fas fa-file-alt text-3xl text-purple-300 mb-4"></i>
+                                <span class="file-name text-white font-medium text-center px-4"></span>
+                            </div>
+                        </div>
+                        <input type="file" name="file" class="opacity-0 absolute inset-0 w-full h-full" required>
+                    </label>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="text-gray-200 text-sm">Obfuscation Level</label>
+                        <input type="range" name="level" min="0.1" max="1" step="0.1" value="0.75" 
+                               class="w-full bg-white/10 rounded-lg appearance-none h-2">
+                        <div class="flex justify-between text-gray-300 text-xs">
+                            <span>Low</span>
+                            <span>High</span>
+                        </div>
                     </div>
-                </form>
-            </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-gray-200 text-sm">File Size Padding (MB)</label>
+                        <input type="number" name="mb" min="0" step="0.1" 
+                               class="w-full bg-white/10 border border-white/20 rounded-xl p-2 text-white">
+                    </div>
+                </div>
+                
+                <button type="submit" class="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-500 hover:opacity-90 
+                       text-white font-semibold rounded-lg transition-all flex items-center justify-center">
+                    <i class="fas fa-lock mr-2"></i>
+                    Encrypt File
+                </button>
+            </form>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="glass-card mt-24 py-6" data-aos="fade-up">
+    <footer class="glass-card mt-12 py-6">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row items-center justify-between">
                 <div class="text-center md:text-left mb-4 md:mb-0">
                     <p class="text-gray-200 text-sm">
-                        © 2025 JavaScript Decoder. All rights reserved.<br>
-                        <span class="text-gray-300">v2 PRO Edition</span>
+                        © 2023 JS Transformer. All rights reserved.<br>
+                        <span class="text-gray-300">v3.0 PRO Edition</span>
                     </p>
                 </div>
                 <div class="flex items-center space-x-6">
                     <a href="https://t.me/Oficiallz" target="_blank" 
-                       class="text-gray-300 hover:text-purple-300 transition-colors flex items-center"
-                       data-aos="zoom-in" data-aos-delay="200">
+                       class="text-gray-300 hover:text-purple-300 transition-colors flex items-center">
                         <i class="fab fa-telegram-plane text-xl mr-2"></i>
                         <span class="font-medium">Developer Contact</span>
                     </a>
@@ -143,78 +162,36 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true,
-            easing: 'ease-in-out'
-        });
-
-        // File Upload Logic
-        const fileInput = document.querySelector('input[type="file"]');
-        const uploadPrompt = document.querySelector('.upload-prompt');
-        const filePreview = document.querySelector('.file-preview');
-        const fileName = document.querySelector('.file-name');
-        const changeFileBtn = document.querySelector('.change-file');
-
-        function handleFileSelect(file) {
-            if (file) {
-                uploadPrompt.style.display = 'none';
-                filePreview.style.display = 'flex';
-                fileName.textContent = file.name;
+        AOS.init({duration: 800});
+        
+        // Tab System
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Activate tab
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('tab-active'));
+                btn.classList.add('tab-active');
                 
-                // Add animation to preview
-                filePreview.classList.add('animate__fadeInUp');
-                setTimeout(() => {
-                    filePreview.classList.remove('animate__fadeInUp');
-                }, 500);
-            }
-        }
-
-        fileInput.addEventListener('change', function(e) {
-            handleFileSelect(e.target.files[0]);
+                // Show content
+                const tab = btn.dataset.tab;
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.toggle('hidden', content.dataset.tab !== tab);
+                });
+            });
         });
 
-        filePreview.addEventListener('click', function(e) {
-            if(e.target === filePreview || e.target === fileName) {
-                fileInput.click();
-            }
-        });
-
-        changeFileBtn.addEventListener('click', () => fileInput.click());
-        
-        // Drag & Drop Functionality
-        const uploadArea = document.querySelector('label');
-        
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.classList.add('border-purple-400', 'bg-white/30');
-            uploadArea.style.animation = 'pulseBorder 1.5s infinite';
-        });
-
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('border-purple-400', 'bg-white/30');
-            uploadArea.style.animation = '';
-        });
-
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.classList.remove('border-purple-400', 'bg-white/30');
-            uploadArea.style.animation = '';
-            fileInput.files = e.dataTransfer.files;
-            handleFileSelect(e.dataTransfer.files[0]);
-        });
-
-        // Add initial animations
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('h1').classList.add('animate__fadeInDown');
-            document.querySelectorAll('.animate__fadeInUp').forEach(el => {
-                el.style.opacity = 0;
-                setTimeout(() => {
-                    el.classList.add('animate__fadeInUp');
-                }, 300);
+        // File Upload Logic for Both Forms
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', function(e) {
+                const form = this.closest('form');
+                const preview = form.querySelector('.file-preview');
+                const fileName = form.querySelector('.file-name');
+                
+                if(this.files[0]) {
+                    preview.classList.remove('hidden');
+                    fileName.textContent = this.files[0].name;
+                }
             });
         });
     </script>
 </body>
-</html>
+                        </html>
